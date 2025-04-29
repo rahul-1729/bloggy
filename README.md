@@ -5,7 +5,9 @@
 - npm start
   
 ## Functionalities of the project
-- Create new posts with a title, description, and content.
-- Edit existing posts in a seamless, in-place editor.
-- Delete posts with a confirmation prompt.
-- Search across post titles in real time.
+- **(Write a Blog...)** Create new posts with a title, description, and content.
+- **Edit** existing posts in a seamless, in-place editor.
+- **Delete** posts with a confirmation prompt.
+- **Search** across post titles in real time.
+
+  
