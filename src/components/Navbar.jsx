@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Search() {
+function Search({ setSearch }) {
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
   const [deco, setDeco] = useState(""); // Border style
   const [decoicon, setDecoicon] = useState("gray"); // Icon color
 

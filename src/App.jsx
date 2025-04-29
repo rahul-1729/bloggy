@@ -6,6 +6,7 @@ import BlogList from './components/BlogList';
 
 function App() {
   const [blogs, setBlogs] = useState([]);
+  
 
   const addBlog = (newBlog) => {
     console.log('Adding new blog:', newBlog);
