@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../context/ThemeContext';
+import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
 function Search({ setSearch }) {
   const navigate = useNavigate();
-  const [deco, setDeco] = useState(""); // Border style
-  const [decoicon, setDecoicon] = useState("gray"); // Icon color
+  const { isNightMode, toggleTheme } = useContext(ThemeContext);
+  const [deco, setDeco] = useState("");
+  const [decoicon, setDecoicon] = useState("gray");
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
   const handleFocus = () => {
-      setDeco("border border-black") ;
-        setDecoicon("black")
+    setDeco(isNightMode ? "border border-sky-500" : "border border-black");
+    setDecoicon(isNightMode ? "skyblue" : "black");
   };
 
   const handleBlur = () => {
@@ -25,16 +28,17 @@ function Search({ setSearch }) {
   };
 
   return (
-  
-    <div className='w-screen h-[80px] px-10 py-1 flex justify-between items-center sticky top-0 bg-white '>
+    <div
+      className={`w-screen h-[80px] px-10 py-1 flex justify-between items-center sticky top-0 z-20 bg-transparent ${isNightMode ? ' text-white' : ' text-black'}`}
+    >
       <div
         onClick={handleWriteClick}
-        className="cursor-pointer whitespace-nowrap py-1 px-4 border bg-blue-600 text-white hover:bg-blue-500 rounded"
+        className={`cursor-pointer whitespace-nowrap py-1 px-4 text-white text-sm font-bold rounded ${isNightMode ? 'bg-indigo-500 hover:bg-indigo-600' : 'bg-zinc-800 hover:bg-zinc-700'}`}
       >
         Write a Blog...
       </div>
 
-      <div className={`w-2/5 h-3/5 rounded-full bg-gray-400/20 flex p-4 items-center gap-5 ${deco}`}>
+      <div className={`w-2/5 h-3/5 rounded-full ${isNightMode ? "bg-gray-600/40":"bg-white"} flex p-4 items-center gap-5 ${deco}`}>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,15 +58,31 @@ function Search({ setSearch }) {
 
         <input
           type="text"
-          className="bg-transparent focus:outline-none placeholder-gray-500 text-black w-full"
+          className={`bg-transparent focus:outline-none placeholder-gray-500 w-full ${isNightMode ? 'text-white' : 'text-black'}`}
           placeholder="Search"
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleSearch}
         />
       </div>
+
+      {/* Theme Toggle Switch */}
+      <div
+        onClick={toggleTheme}
+        className={`w-14 h-8 ${isNightMode ? "bg-gray-600/40 border-2 border-gray-300":"bg-white border border-zinc-400 shadow shadow-md"} dark:bg-gray-600 rounded-full flex items-center px-1 cursor-pointer relative transition-colors `}
+      >
+        {/* Icons on sides */}
+        <SunIcon className="w-4 h-4 text-yellow-300 absolute left-1" />
+        <MoonIcon className="w-4 h-4 text-blue-500 absolute right-1" />
+
+        {/* Sliding Thumb */}
+        <div
+          className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
+            isNightMode ? 'translate-x-6' : 'translate-x-0'
+          }`}
+        />
+      </div>
     </div>
-    
   );
 }
 
